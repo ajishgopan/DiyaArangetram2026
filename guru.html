@@ -21,6 +21,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,10,10,0.9
 .nav-links{display:flex;}
 .nav-links a{color:rgba(232,208,138,0.7);text-decoration:none;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;padding:0 1.1rem;height:58px;display:flex;align-items:center;border-bottom:2px solid transparent;transition:color 0.2s;}
 .nav-links a:hover,.nav-links a.active{color:var(--gold-light);border-bottom-color:var(--gold);}
+.nav-toggle{display:none;}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;margin-left:auto;}
+.nav-burger span{display:block;height:2px;width:24px;background:#E8D08A;transition:transform 0.3s,opacity 0.3s;}
+.nav-toggle:checked ~ .nav-burger span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle:checked ~ .nav-burger span:nth-child(2){opacity:0;}
+.nav-toggle:checked ~ .nav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:900px){
+  nav{padding:0 1.25rem;}
+  .nav-burger{display:flex;}
+  .nav-links{position:fixed;top:58px;left:0;right:0;flex-direction:column;background:rgba(26,10,10,0.98);border-bottom:1px solid rgba(201,168,76,0.3);max-height:0;overflow:hidden;transition:max-height 0.35s ease;}
+  .nav-toggle:checked ~ .nav-links{max-height:85vh;}
+  .nav-links a{height:auto;width:100%;padding:0.95rem 1.5rem;font-size:12px;border-bottom:1px solid rgba(201,168,76,0.12);}
+  .nav-links a.active{color:#E8D08A;border-bottom-color:rgba(201,168,76,0.12);}
+}
 
 /* ── HERO ── */
 .hero{
@@ -50,7 +64,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,10,10,0.9
 .section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem;}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:300;color:#E8D08A;margin-bottom:0.8rem;}
 .section-rule{width:50px;height:1px;background:var(--gold);opacity:0.5;margin-bottom:2rem;}
-.bio-text p{font-size:26px;line-height:2;color:#D4B896;margin-bottom:1.3rem;}
+.bio-text p{font-size:clamp(0.95rem,2.5vw,1.1rem);line-height:2;color:#D4B896;margin-bottom:1.3rem;}
 .bio-text p:last-child{margin-bottom:0;}
 .bio-text p em{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.08em;color:#E8D08A;}
 
@@ -75,7 +89,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,10,10,0.9
 .ach-item:hover{background:#2A0808;}
 .ach-icon{font-size:1.5rem;margin-bottom:0.8rem;}
 .ach-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#E8D08A;margin-bottom:0.4rem;}
-.ach-desc{font-size:21px;color:#D4B896;line-height:1.7;}
+.ach-desc{font-size:clamp(0.88rem,2vw,0.98rem);color:#D4B896;line-height:1.7;}
 
 /* ── LINEAGE ── */
 .lineage{background:#2A0808;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem 2rem;text-align:center;}
@@ -88,7 +102,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,10,10,0.9
 
 footer{background:var(--dark);text-align:center;padding:2.5rem 1rem;border-top:1px solid var(--border);}
 .footer-ornament{color:var(--gold);font-size:1rem;opacity:0.35;margin-bottom:0.6rem;}
-footer p{font-size:11px;letter-spacing:0.15em;color:rgba(232,208,138,0.25);text-transform:uppercase;}
+footer p{font-size:clamp(0.7rem,1.8vw,0.8rem);letter-spacing:0.15em;color:rgba(232,208,138,0.25);text-transform:uppercase;}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
@@ -127,12 +141,21 @@ footer p{font-size:11px;letter-spacing:0.15em;color:rgba(232,208,138,0.25);text-
 
 
 @media(max-width:680px){{}}
+
+@media(max-width:680px){
+  section,.section,.hero-section{padding-top:2.5rem!important;padding-bottom:2.5rem!important;}
+  .page-header,.hero{min-height:clamp(340px,55vh,500px)!important;}
+  h1{font-size:clamp(1.8rem,7vw,2.8rem)!important;}
+  h2{font-size:clamp(1.4rem,5.5vw,2.2rem)!important;}
+}
 </style>
 </head>
 <body>
 
 <nav>
   <a href="index.html" class="nav-logo">Diya's Arangetram</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <label for="nav-toggle" class="nav-burger" aria-label="Toggle menu"><span></span><span></span><span></span></label>
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="diya.html">Diya</a>
@@ -294,14 +317,14 @@ footer p{font-size:11px;letter-spacing:0.15em;color:rgba(232,208,138,0.25);text-
       <!-- Cell 1: About -->
       <div style="background:#1A0505;border:1px solid rgba(201,168,76,0.3);padding:2.5rem;transition:background 0.2s;">
         <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#C9A84C;margin-bottom:1rem;">About</div>
-        <p style="font-size:24px;line-height:1.95;color:#D4B896;margin-bottom:1rem;">Founded in 2013 by Guru Smt. Rashmi Sudheendra, NRPAC is a thriving community of over 100 students in New Jersey. With classes in Hillsborough, Montgomery, Franklin Park, and Kendall Park, the school has become a cornerstone of Indian classical dance in the tri-state area.</p>
-        <p style="font-size:24px;line-height:1.95;color:#D4B896;">Focusing on the Pandanallur style of Bharatanatyam, NRPAC also offers semi-classical, folk, and Bollywood dance, as well as formal SAMPADA certification in affiliation with Potti Sreeramulu Telugu University.</p>
+        <p style="font-size:clamp(0.95rem,2.3vw,1.08rem);line-height:1.95;color:#D4B896;margin-bottom:1rem;">Founded in 2013 by Guru Smt. Rashmi Sudheendra, NRPAC is a thriving community of over 100 students in New Jersey. With classes in Hillsborough, Montgomery, Franklin Park, and Kendall Park, the school has become a cornerstone of Indian classical dance in the tri-state area.</p>
+        <p style="font-size:clamp(0.95rem,2.3vw,1.08rem);line-height:1.95;color:#D4B896;">Focusing on the Pandanallur style of Bharatanatyam, NRPAC also offers semi-classical, folk, and Bollywood dance, as well as formal SAMPADA certification in affiliation with Potti Sreeramulu Telugu University.</p>
       </div>
 
       <!-- Cell 2: Mission + Stats -->
       <div style="background:#1A0505;border:1px solid rgba(201,168,76,0.3);padding:2.5rem;">
         <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#C9A84C;margin-bottom:1rem;">Our Mission</div>
-        <p style="font-size:24px;line-height:1.95;color:#D4B896;margin-bottom:2rem;">To impart the rich Indian culture and tradition through Bharatanatyam — nurturing students in a supportive environment where they develop not only artistic skills but also discipline, confidence, and a deeper appreciation for their cultural roots.</p>
+        <p style="font-size:clamp(0.95rem,2.3vw,1.08rem);line-height:1.95;color:#D4B896;margin-bottom:2rem;">To impart the rich Indian culture and tradition through Bharatanatyam — nurturing students in a supportive environment where they develop not only artistic skills but also discipline, confidence, and a deeper appreciation for their cultural roots.</p>
         <div style="display:flex;gap:2rem;flex-wrap:wrap;">
           <div style="text-align:center;">
             <div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#E8D08A;line-height:1;">100+</div>
@@ -321,7 +344,7 @@ footer p{font-size:11px;letter-spacing:0.15em;color:rgba(232,208,138,0.25);text-
       <!-- Cell 3: Arangetram -->
       <div style="background:#1A0505;border:1px solid rgba(201,168,76,0.3);padding:2.5rem;">
         <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#C9A84C;margin-bottom:1rem;">The Arangetram Tradition</div>
-        <p style="font-size:24px;line-height:1.95;color:#D4B896;">Many of Rashmi's students have completed their Arangetram both in the United States and India — a testament to her ability to instill confidence, precision, and emotional depth in every dancer she shapes. Diya Gopan's Arangetram on August 1, 2026 is the latest in this proud lineage.</p>
+        <p style="font-size:clamp(0.95rem,2.3vw,1.08rem);line-height:1.95;color:#D4B896;">Many of Rashmi's students have completed their Arangetram both in the United States and India — a testament to her ability to instill confidence, precision, and emotional depth in every dancer she shapes. Diya Gopan's Arangetram on August 1, 2026 is the latest in this proud lineage.</p>
       </div>
 
       <!-- Cell 4: Quote -->
